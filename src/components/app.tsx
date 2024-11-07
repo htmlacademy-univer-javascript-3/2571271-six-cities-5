@@ -1,9 +1,12 @@
 import MainPage from '../pages/main-page/main-page';
 
+type AppProps = {
+  placesCount: number;
+}
 
-function App(): JSX.Element {
+function App({placesCount}: AppProps): JSX.Element {
   return (
-    <MainPage cardsCount={5}/>
+    <MainPage placesCount={placesCount}/>
   );
 }
 
