@@ -1,5 +1,5 @@
 
-import PlaceCard from '../../components/place-card';
+import PlaceCard from './place-card';
 
 type WelcomeScreenProps = {
   placesCount: number;
