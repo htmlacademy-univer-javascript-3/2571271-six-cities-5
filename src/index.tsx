@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from '../app';
+import App from './components/app/app';
+import { MockOffersList } from './mocks/offer-lists.ts';
+import { MockOffers } from './mocks/offers.ts';
+import { MockComments } from './mocks/comments.ts';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 
-const PLACES_COUNT = 227;
-
 root.render(
   <React.StrictMode>
-    <App placesCount={PLACES_COUNT}/>
+    <App offerList={MockOffersList} offer={MockOffers[0]} comments={MockComments} />
   </React.StrictMode>
 );
