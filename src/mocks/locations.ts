@@ -1,33 +1,24 @@
-import { Location } from '../types/location';
+import { Location } from '../types/location.ts';
+import { MockPoints } from './points.ts';
 
 export const MockLocations: Location[] = [
   {
-    latitude: 51.7128,
-    longitude: 56.121231243,
-    zoom: 16
+    name: 'Amsterdam',
+    point: MockPoints[0]
   },
   {
-    latitude: 38.81231,
-    longitude: 2.3123123522,
-    zoom: 16
+    name: 'Amsterdam',
+    point: MockPoints[1]
   },
   {
-    latitude: 34.7128,
-    longitude: -44.1260,
-    zoom: 16
+    name: 'Amsterdam',
+    point: MockPoints[2]
   },
   {
-    latitude: 72.234236,
-    longitude: 109.21237,
-    zoom: 16
+    name: 'Amsterdam',
+    point: MockPoints[3]
   },
   {
-    latitude: 13.45645,
-    longitude: 45.4577,
-    zoom: 16
-  },
-  {
-    latitude: 45.4576,
-    longitude: 152.7567,
-    zoom: 16
+    name: 'Amsterdam',
+    point: MockPoints[4]
   }];
