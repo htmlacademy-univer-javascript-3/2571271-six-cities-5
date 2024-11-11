@@ -5,11 +5,13 @@ import { OfferList } from '../../types/offer-list.ts';
 import { AppRoutes } from '../../constants/constants.ts';
 import { Stars } from '../stars/stars.tsx';
 import { RatingClasses } from '../../constants/constants.ts';
+import {Nullable} from 'vitest';
 
 type PlaceCardProps = OfferList & {
   cardType: CardTypes;
-  onMouseOver?: () => void;
-  onMouseLeave?: () => void;
+  onHover?: (id: Nullable<string>) => void;
+  width: number;
+  height: number;
 }
 
 export function PlaceCard({
@@ -22,19 +24,21 @@ export function PlaceCard({
   type,
   isFavorite,
   cardType,
-  onMouseLeave,
-  onMouseOver
+  onHover,
+  width,
+  height
 }: PlaceCardProps) {
 
-  const singleOfferUrl = AppRoutes.Offer.replace('id', id);
+  const singleOfferUrl = AppRoutes.Offer.replace(':id', id);
 
   return (
     <article className={cn('place-card', {
       'cities__card': cardType === CardTypes.Cities,
       'favorites__card': cardType === CardTypes.Favorites,
+      'near-places__card': cardType === CardTypes.Near
     })}
-    onMouseLeave={onMouseLeave}
-    onMouseOver={onMouseOver}
+    onMouseLeave={() => onHover?.call(null, null)}
+    onMouseOver={() => onHover?.call(null, id)}
     >
       {isPremium &&
         <div className="place-card__mark">
@@ -43,14 +47,15 @@ export function PlaceCard({
       <div className={cn('place-place-card__image-wrapper', {
         'cities__image-wrapper': cardType === CardTypes.Cities,
         'favorites__image-wrapper': cardType === CardTypes.Favorites,
+        'near-places__image-wrapper': cardType === CardTypes.Near
       })}
       >
         <Link to={singleOfferUrl}>
           <img
             className="place-card__image"
             src={previewImage}
-            width={cardType === CardTypes.Cities ? 260 : 150}
-            height={cardType === CardTypes.Cities ? 200 : 110}
+            width={width}
+            height={height}
             alt="Place image"
           />
         </Link>

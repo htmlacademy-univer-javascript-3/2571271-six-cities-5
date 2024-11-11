@@ -10,10 +10,11 @@ import Layout from '../layout/layout';
 import { Offer } from '../../types/offer.ts';
 import { OfferList } from '../../types/offer-list.ts';
 import { Comment } from '../../types/comment.ts';
+import { MockLocations } from '../../mocks/locations.ts';
 
 type AppProps = {
   offerList: OfferList[];
-  offer: Offer;
+  offers: Offer[];
   comments: Comment[];
 };
 
@@ -22,12 +23,12 @@ function App(props: AppProps): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
-          <Route index path={AppRoutes.Root} element={<MainPage offers={props.offerList}/>}/>
+          <Route index path={AppRoutes.Root} element={<MainPage offers={props.offerList} city={MockLocations[0]} />} />
           <Route path={AppRoutes.Login} element={<LoginPage />} />
           <Route element={<PrivateRoute authStatus={AuthStatus.Auth}/>}>
-            <Route path={AppRoutes.Favorites} element={<FavoritesPage offers={props.offerList}/>}></Route>
+            <Route path={AppRoutes.Favorites} element={<FavoritesPage offers={props.offerList} />} />
           </Route>
-          <Route path={AppRoutes.Offer} element={<OfferPage comments={props.comments} offer={props.offer}/>}></Route>
+          <Route path={AppRoutes.Offer} element={<OfferPage comments={props.comments} offers={props.offers} nearOffers={props.offerList} />} />
           <Route path='*' element={<NotFound />} />
         </Route>
       </Routes>

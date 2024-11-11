@@ -1,4 +1,4 @@
-import { City } from './city.ts';
+import { Point } from './point.ts';
 import { Location } from './location.ts';
 import { Host } from './host.ts';
 
@@ -7,8 +7,8 @@ export type Offer = {
     title: string;
     type: string;
     price: number;
-    city: City;
-    location: Location;
+    city: Location;
+    location: Point;
     isFavorite: boolean;
     isPremium: boolean;
     rating: number;
