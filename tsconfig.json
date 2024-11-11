@@ -21,6 +21,6 @@
     "noFallthroughCasesInSwitch": true,
     "forceConsistentCasingInFileNames": true,
   },
-  "include": ["src", "vite.config.ts", "src/components/constants.ts", "app.tsx"],
+  "include": ["src", "vite.config.ts", "src/constants/constants.ts", "src/components/app/app.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
