@@ -1,3 +1,4 @@
+import { Provider } from 'react-redux';
 import MainPage from '../../pages/main-page/main-page';
 import NotFound from '../../pages/errors/404';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
@@ -10,7 +11,7 @@ import Layout from '../layout/layout';
 import { Offer } from '../../types/offer.ts';
 import { OfferList } from '../../types/offer-list.ts';
 import { Comment } from '../../types/comment.ts';
-import { MockLocations } from '../../mocks/locations.ts';
+import { store } from '../../store';
 
 type AppProps = {
   offerList: OfferList[];
@@ -20,19 +21,21 @@ type AppProps = {
 
 function App(props: AppProps): JSX.Element {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<Layout />}>
-          <Route index path={AppRoutes.Root} element={<MainPage offers={props.offerList} city={MockLocations[0]} />} />
-          <Route path={AppRoutes.Login} element={<LoginPage />} />
-          <Route element={<PrivateRoute authStatus={AuthStatus.Auth}/>}>
-            <Route path={AppRoutes.Favorites} element={<FavoritesPage offers={props.offerList} />} />
+    <Provider store={store}>
+      <BrowserRouter>
+        <Routes>
+          <Route element={<Layout />}>
+            <Route index path={AppRoutes.Root} element={<MainPage />} />
+            <Route path={AppRoutes.Login} element={<LoginPage />} />
+            <Route element={<PrivateRoute authStatus={AuthStatus.Auth}/>}>
+              <Route path={AppRoutes.Favorites} element={<FavoritesPage offers={props.offerList} />} />
+            </Route>
+            <Route path={AppRoutes.Offer} element={<OfferPage comments={props.comments} offers={props.offers} nearOffers={props.offerList} />} />
+            <Route path='*' element={<NotFound />} />
           </Route>
-          <Route path={AppRoutes.Offer} element={<OfferPage comments={props.comments} offers={props.offers} nearOffers={props.offerList} />} />
-          <Route path='*' element={<NotFound />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+        </Routes>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
