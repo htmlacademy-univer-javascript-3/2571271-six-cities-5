@@ -19,19 +19,22 @@ type AppProps = {
   comments: Comment[];
 };
 
-function App(props: AppProps): JSX.Element {
+export function App({offers, comments, offerList}: AppProps) {
   return (
     <Provider store={store}>
       <BrowserRouter>
         <Routes>
           <Route element={<Layout />}>
             <Route index path={AppRoutes.Root} element={<MainPage />} />
-            <Route path={AppRoutes.Login} element={<LoginPage />} />
-            <Route element={<PrivateRoute authStatus={AuthStatus.Auth}/>}>
-              <Route path={AppRoutes.Favorites} element={<FavoritesPage offers={props.offerList} />} />
+            <Route path={AppRoutes.Login} element={<LoginPage />}></Route>
+            <Route element={<PrivateRoute authStatus={AuthStatus.Auth} />}>
+              <Route path={AppRoutes.Favorites} element={<FavoritesPage offers={offerList} />}></Route>
             </Route>
-            <Route path={AppRoutes.Offer} element={<OfferPage comments={props.comments} offers={props.offers} nearOffers={props.offerList} />} />
-            <Route path='*' element={<NotFound />} />
+            <Route path={AppRoutes.Offer}
+              element={<OfferPage comments={comments} offers={offers} nearOffers={offerList} />}
+            >
+            </Route>
+            <Route path='*' element={<NotFound />}></Route>
           </Route>
         </Routes>
       </BrowserRouter>
