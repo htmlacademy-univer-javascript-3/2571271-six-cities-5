@@ -1,20 +1,20 @@
-import {Tabs} from '../../components/tabs/tabs.tsx';
-import {useEffect} from 'react';
-import {useAppDispatch, useAppSelector} from '../../store/hooks.ts';
-import {changeCityAction, fillOrdersAction} from '../../store/actions.ts';
+import { Tabs } from '../../components/tabs/tabs.tsx';
+import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
 import cn from 'classnames';
-import {EmptyOfferList, OfferListMainPage} from './offer-list-main-page.tsx';
+import { EmptyOfferList, OfferListMainPage } from './offer-list-main-page.tsx';
+import { changeCityAction } from '../../store/actions.ts';
+import styles from './main-page.module.css';
 
 export function MainPage() {
   const city = useAppSelector((state) => state.city);
+
   const offers = useAppSelector((state) =>
     state.offers.filter((o) =>
       o.city.name === city));
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fillOrdersAction());
-  });
+  const isLoading = useAppSelector((state) => state.loadingStatus);
+
   const isEmpty = offers.length === 0;
   return (
     <main
@@ -27,17 +27,21 @@ export function MainPage() {
         onClick={(c) => dispatch(changeCityAction(c))}
       />
       <div className="cities">
-        <div
-          className={cn('cities__places-container', 'container', {
-            'cities__places-container--empty': offers.length === 0,
-          })}
-        >
-          {!isEmpty ? (
-            <OfferListMainPage offers={offers} city={offers[0].city}/>
-          ) : (
-            <EmptyOfferList city={city}/>
-          )}
-        </div>
+        {isLoading ? (
+          <div className={styles['cities__places-loading']} />
+        ) : (
+          <div
+            className={cn('cities__places-container', 'container', {
+              'cities__places-container--empty': offers.length === 0,
+            })}
+          >
+            {!isEmpty ? (
+              <OfferListMainPage offers={offers} city={offers[0].city} />
+            ) : (
+              <EmptyOfferList city={city} />
+            )}
+          </div>
+        )}
       </div>
     </main>
   );

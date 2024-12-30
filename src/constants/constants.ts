@@ -19,6 +19,17 @@ export enum CardTypes {
   Near,
 }
 
+export enum ApiRoutes {
+  Offer = '/six-cities/offers/{offerId}',
+  Offers = '/six-cities/offers',
+  OffersNearby = '/six-cities/offers/{offerId}/nearby',
+  Favorite = '/six-cities/favorite',
+  FavoriteStatus = '/six-cities/favorite/{offerId}/{status}',
+  Comments = '/six-cities/comments/{offerId}',
+  Login = '/six-cities/login',
+  Logout = '/six-cities/logout',
+}
+
 export const monthNames = [
   'January',
   'February',
@@ -52,3 +63,5 @@ export const currentCustomIcon = new Icon({
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
+
+
