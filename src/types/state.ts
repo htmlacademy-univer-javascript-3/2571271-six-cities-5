@@ -1,8 +1,4 @@
-import { OfferList } from './offer-list.ts';
-import { SortingOrder } from './sortings.ts';
+import { store } from '../store';
 
-export type State = {
-  city: string;
-  offers: OfferList[];
-  sortingOrder: SortingOrder;
-};
+export type State = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

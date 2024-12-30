@@ -1,22 +1,34 @@
-import { createReducer } from '@reduxjs/toolkit';
 import { MockLocations } from '../mocks/locations.ts';
-import { MockOffersList } from '../mocks/offer-lists.ts';
-import { changeCityAction, fillOrdersAction, changeSortingOrderAction } from './actions';
-import { State } from '../types/state.ts';
+import { createReducer } from '@reduxjs/toolkit';
+import {changeCityAction,
+  fillSortingOrdersAction,
+  changeSortingOrderAction,
+  setSortingOrdersLoadingAction} from './actions';
+import {SortingOrder} from '../types/sortings.ts';
+import {OfferList} from '../types/offer-list.ts';
 
-const initialState: State = {
-  city: MockLocations.find((c) => c.name === 'Paris')?.name || MockLocations[0].name,
+const initialState: {
+  city: string;
+  offers: OfferList[];
+  sortingOrder: SortingOrder;
+  loadingStatus: boolean;
+} = {
+  city: MockLocations[0].name,
   offers: [],
-  sortingOrder: 'Popular'
+  sortingOrder: 'Popular',
+  loadingStatus: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(fillOrdersAction, (state) => {
-      state.offers = MockOffersList;
-    })
     .addCase(changeCityAction, (state, action) => {
       state.city = action.payload;
+    })
+    .addCase(fillSortingOrdersAction, (state, action) => {
+      state.offers = action.payload;
+    })
+    .addCase(setSortingOrdersLoadingAction, (state, action) => {
+      state.loadingStatus = action.payload;
     })
     .addCase(changeSortingOrderAction, (state, action) => {
       state.sortingOrder = action.payload;
