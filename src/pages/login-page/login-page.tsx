@@ -8,10 +8,12 @@ import { loginAction } from '../../store/api-actions.ts';
 
 export function LoginPage() {
   const authStatus = useAppSelector((state) => state.authorizationStatus);
+
   const [formData, setFormData] = useState<AuthData>({
     login: '',
     password: '',
   });
+
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   useEffect(() => {
@@ -19,14 +21,17 @@ export function LoginPage() {
       navigate(AppRoutes.Root);
     }
   }, [authStatus, navigate]);
+
   const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.currentTarget;
     setFormData({ ...formData, [name]: value });
   };
+
   const login = () => {
     dispatch(loginAction(formData));
     navigate(AppRoutes.Root);
   };
+
   return (
     <main className="page__main page__main--login">
       <div className="page__login-container container">

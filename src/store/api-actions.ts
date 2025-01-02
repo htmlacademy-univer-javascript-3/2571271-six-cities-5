@@ -28,6 +28,7 @@ undefined,
     dispatch(setSortingOrdersLoadingAction(false));
     dispatch(fillSortingOrdersAction(data));
   });
+
 export const authAction = createAsyncThunk<
 void,
 undefined,
@@ -63,6 +64,7 @@ export const loginAction = createAsyncThunk<
         dispatch(changeAuthStatusAction(AuthStatus.Auth));
       }
     );
+
 export const logoutAction = createAsyncThunk<
     void,
     undefined,
