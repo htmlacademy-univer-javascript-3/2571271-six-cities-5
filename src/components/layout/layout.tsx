@@ -1,20 +1,29 @@
 import cn from 'classnames';
-import { Outlet, useLocation, Link } from 'react-router-dom';
+import { Outlet, useLocation, Link, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../constants/constants';
 import { AuthStatus } from '../../constants/constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
-
 import { logoutAction } from '../../store/api-actions';
 
 export function Layout() {
   const location = useLocation();
+  const authStatus = useAppSelector((state) => state.auth.authorizationStatus);
+  const user = useAppSelector((state) => state.auth.user);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+
   const pageClasses = cn('page', {
     'page--gray page--main': location.pathname === AppRoutes.Root as string,
     'page--gray page--login': location.pathname === AppRoutes.Login as string
   });
-  const authStatus = useAppSelector((state) => state.auth.authorizationStatus);
-  const user = useAppSelector((state) => state.auth.user);
-  const dispatch = useAppDispatch();
+
+  const favoriteCount = useAppSelector(
+    (state) => state.offers.favourites.length
+  );
+  const logOut = () => {
+    dispatch(logoutAction());
+    navigate(AppRoutes.Root);
+  };
 
   return (
     <div className={pageClasses}>
@@ -48,14 +57,13 @@ export function Layout() {
                         <span className="header__user-name user__name">
                           {user.email}
                         </span>
-                        <span className="header__favorite-count">3</span>
+                        <span className="header__favorite-count">
+                          {favoriteCount}
+                        </span>
                       </Link>
                     </li>
                     <li className="header__nav-item">
-                      <Link to={'#'} className="header__nav-link" onClick={()=> {
-                        dispatch(logoutAction());
-                      }}
-                      > {/* log out */}
+                      <Link to={AppRoutes.Root} onClick={logOut} className="header__nav-link">
                         <span className="header__signout">Sign out</span>
                       </Link>
                     </li>

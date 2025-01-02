@@ -4,11 +4,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type AuthState = {
   authorizationStatus: AuthStatus;
-  user?: User;
+  user: User | null;
 };
 
 const initialState: AuthState = {
   authorizationStatus: AuthStatus.Unknown,
+  user: null,
 };
 
 export const authSlice = createSlice({
@@ -18,7 +19,7 @@ export const authSlice = createSlice({
     changeAuthorizationStatus(state, action: PayloadAction<AuthStatus>) {
       state.authorizationStatus = action.payload;
     },
-    setUser(state, action: PayloadAction<User>) {
+    setUser(state, action: PayloadAction<User | null>) {
       state.user = action.payload;
     },
   },

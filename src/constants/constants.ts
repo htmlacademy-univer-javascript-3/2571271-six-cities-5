@@ -5,6 +5,7 @@ export enum AppRoutes {
   Login = '/login',
   Favorites = 'favorites',
   Offer = 'offer/:id',
+  NotFound = '/*',
 }
 
 export enum AuthStatus {

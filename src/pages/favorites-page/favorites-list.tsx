@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
 import { OfferList } from '../../types/offer-list.ts';
 import { FavoritesCardList } from '../../components/place-card/place-card-list.tsx';
 
@@ -6,8 +7,11 @@ type FavoritesListProps = {
   offers: OfferList[];
 };
 
-export function FavoritesList({offers}: FavoritesListProps){
-  const cities = Array.from(new Set(offers.map((off) => off.city.name).toSorted()));
+export function FavoritesList({offers}: FavoritesListProps) {
+  const cities = useMemo(
+    () => Array.from(new Set(offers.map((x) => x.city.name).toSorted())),
+    [offers]
+  );
 
   return (
     <ul className="favorites__list">
