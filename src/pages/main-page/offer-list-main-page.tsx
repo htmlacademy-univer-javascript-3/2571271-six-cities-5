@@ -5,8 +5,6 @@ import { useState } from 'react';
 import { Nullable } from 'vitest';
 import { Map } from '../../components/map/map.tsx';
 import { Sorting } from '../../components/sorting/sorting.tsx';
-import { useAppSelector } from '../../store/hooks.ts';
-import { sorting } from '../../types/sortings.ts';
 
 type OfferListProps = {
   offers: OfferList[];
@@ -15,8 +13,6 @@ type OfferListProps = {
 
 export function OfferListMainPage({ offers, city }: OfferListProps) {
   const [selectedId, setSelectedId] = useState<Nullable<string>>();
-  const order = useAppSelector((state) => state.sortingOrder);
-  offers = offers.sort(sorting[order]);
 
   const points = offers.map((o) => ({ name: o.id, location: o.location }));
   return (

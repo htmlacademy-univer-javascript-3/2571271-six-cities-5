@@ -3,7 +3,7 @@ import { AppRoutes, AuthStatus } from '../../constants/constants';
 import { useAppSelector } from '../../store/hooks';
 
 function PrivateRoute() {
-  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const authStatus = useAppSelector((state) => state.auth.authorizationStatus);
   return authStatus === AuthStatus.Auth ? (
     <Outlet />
   ) : (

@@ -2,18 +2,16 @@ import { Tabs } from '../../components/tabs/tabs.tsx';
 import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
 import cn from 'classnames';
 import { EmptyOfferList, OfferListMainPage } from './offer-list-main-page.tsx';
-import { changeCityAction } from '../../store/actions.ts';
+import { changeCity } from '../../slices/city-slice.ts';
+import { cityOffersSelector } from '../../store/selectors.ts';
 import styles from './main-page.module.css';
 
 export function MainPage() {
-  const city = useAppSelector((state) => state.city);
-
-  const offers = useAppSelector((state) =>
-    state.offers.filter((o) =>
-      o.city.name === city));
   const dispatch = useAppDispatch();
 
-  const isLoading = useAppSelector((state) => state.loadingStatus);
+  const city = useAppSelector((state) => state.city.city);
+  const offers = useAppSelector(cityOffersSelector);
+  const isLoading = useAppSelector((state) => state.offers.offersLoadingStatus);
 
   const isEmpty = offers.length === 0;
   return (
@@ -24,7 +22,7 @@ export function MainPage() {
     >
       <h1 className="visually-hidden">Cities</h1>
       <Tabs selectedCity={city}
-        onClick={(c) => dispatch(changeCityAction(c))}
+        onClick={(c) => dispatch(changeCity(c))}
       />
       <div className="cities">
         {isLoading ? (

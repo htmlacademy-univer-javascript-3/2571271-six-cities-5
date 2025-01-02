@@ -5,7 +5,8 @@ import { OfferList } from '../../types/offer-list.ts';
 import { AppRoutes } from '../../constants/constants.ts';
 import { Stars } from '../stars/stars.tsx';
 import { RatingClasses } from '../../constants/constants.ts';
-import {Nullable} from 'vitest';
+import { Nullable } from 'vitest';
+import { memo } from 'react';
 
 type PlaceCardProps = OfferList & {
   cardType: CardTypes;
@@ -93,3 +94,4 @@ export function PlaceCard({
 }
 
 export default PlaceCard;
+export const MemoPlaceCard = memo(PlaceCard);

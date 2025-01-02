@@ -1,4 +1,4 @@
-import PlaceCard from './place-card.tsx';
+import { MemoPlaceCard } from './place-card.tsx';
 import { Nullable } from 'vitest';
 import { CardTypes } from '../../constants/constants.ts';
 import { OfferList } from '../../types/offer-list.ts';
@@ -18,13 +18,13 @@ export function CardList(props: PlaceCardListProps) {
   return (
     <div className={props.className}>
       {props.offers.map((offer) => (
-        <PlaceCard
+        <MemoPlaceCard
           key={offer.id}
           {...offer}
           width={props.width}
           height={props.height}
           cardType={props.listType}
-          onHover={(id) => props.onItemHover?.call(null, id)}
+          onHover={props.onItemHover}
         />
       ))}
     </div>
