@@ -2,7 +2,7 @@ import { Provider } from 'react-redux';
 import MainPage from '../../pages/main-page/main-page';
 import NotFound from '../../pages/errors/404';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AppRoutes, AuthStatus } from '../../constants/constants';
+import { AppRoutes } from '../../constants/constants';
 import LoginPage from '../../pages/login-page/login-page.tsx';
 import FavoritesPage from '../../pages/favorites-page/favorites-page.tsx';
 import OfferPage from '../../pages/offer-page/offer-page.tsx';
@@ -27,7 +27,7 @@ export function App({offers, comments, offerList}: AppProps) {
           <Route element={<Layout />}>
             <Route index path={AppRoutes.Root} element={<MainPage />} />
             <Route path={AppRoutes.Login} element={<LoginPage />}></Route>
-            <Route element={<PrivateRoute authStatus={AuthStatus.Auth} />}>
+            <Route element={<PrivateRoute />}>
               <Route path={AppRoutes.Favorites} element={<FavoritesPage offers={offerList} />}></Route>
             </Route>
             <Route path={AppRoutes.Offer}

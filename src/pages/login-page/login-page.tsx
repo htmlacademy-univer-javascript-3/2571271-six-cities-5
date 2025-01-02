@@ -1,44 +1,83 @@
-function LoginPage(): JSX.Element {
-  return (
-    <div className="page page--gray page--login">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
+import { Link, useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
+import { AppRoutes } from '../../constants/constants.ts';
+import { AuthStatus } from '../../constants/constants.ts';
+import { useEffect, useState, ChangeEvent } from 'react';
+import { AuthData } from '../../types/authorization-data.ts';
+import { loginAction } from '../../store/api-actions.ts';
 
-      <main className="page__main page__main--login">
-        <div className="page__login-container container">
-          <section className="login">
-            <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" />
-              </div>
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" />
-              </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
-            </form>
-          </section>
-          <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <a className="locations__item-link" href="#">
-                <span>Amsterdam</span>
-              </a>
+export function LoginPage() {
+  const authStatus = useAppSelector((state) => state.authorizationStatus);
+  const [formData, setFormData] = useState<AuthData>({
+    login: '',
+    password: '',
+  });
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (authStatus === AuthStatus.Auth) {
+      navigate(AppRoutes.Root);
+    }
+  }, [authStatus, navigate]);
+  const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.currentTarget;
+    setFormData({ ...formData, [name]: value });
+  };
+  const login = () => {
+    dispatch(loginAction(formData));
+    navigate(AppRoutes.Root);
+  };
+  return (
+    <main className="page__main page__main--login">
+      <div className="page__login-container container">
+        <section className="login">
+          <h1 className="login__title">Sign in</h1>
+          <form className="login__form form">
+            <div className="login__input-wrapper form__input-wrapper">
+              <label className="visually-hidden">E-mail</label>
+              <input
+                className="login__input form__input"
+                type="email"
+                name="login"
+                placeholder="Email"
+                onChange={handleFormChange}
+                value={formData.login}
+                required
+              />
             </div>
-          </section>
-        </div>
-      </main>
-    </div>
+            <div className="login__input-wrapper form__input-wrapper">
+              <label className="visually-hidden">Password</label>
+              <input
+                className="login__input form__input"
+                type="password"
+                name="password"
+                placeholder="Password"
+                onChange={handleFormChange}
+                value={formData.password}
+                required
+              />
+            </div>
+            <button
+              className="login__submit form__submit button"
+              type="submit"
+              onClick={login}
+            >
+                Sign in
+            </button>
+          </form>
+        </section>
+        <section className="locations locations--login locations--current">
+          <div className="locations__item">
+            <Link
+              className="locations__item-link"
+              to={AppRoutes.Root}
+            >
+              <span>Amsterdam</span>
+            </Link>
+          </div>
+        </section>
+      </div>
+    </main>
   );
 }
 

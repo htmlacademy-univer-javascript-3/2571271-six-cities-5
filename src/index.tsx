@@ -5,9 +5,10 @@ import { MockOffersList } from './mocks/offer-lists.ts';
 import { MockOffers } from './mocks/offers.ts';
 import { MockComments } from './mocks/comments.ts';
 import { store } from './store';
-import { fetchOrdersAction } from './store/api-actions.ts';
+import { fetchOrdersAction, authAction } from './store/api-actions.ts';
 
 store.dispatch(fetchOrdersAction());
+store.dispatch(authAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
