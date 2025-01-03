@@ -1,8 +1,9 @@
+import { useState } from 'react';
+import { Nullable } from 'vitest';
+
 import { Location } from '../../types/location.ts';
 import { CitiesCardList } from '../../components/place-card/place-card-list.tsx';
 import { OfferList } from '../../types/offer-list.ts';
-import { useState } from 'react';
-import { Nullable } from 'vitest';
 import { Map } from '../../components/map/map.tsx';
 import { Sorting } from '../../components/sorting/sorting.tsx';
 
@@ -14,7 +15,7 @@ type OfferListProps = {
 export function OfferListMainPage({ offers, city }: OfferListProps) {
   const [selectedId, setSelectedId] = useState<Nullable<string>>();
 
-  const points = offers.map((o) => ({ name: o.id, location: o.location }));
+  const points = offers.map((o) => ({ name: o.id, point: o.location }));
   return (
     <>
       <section className="cities__places places">

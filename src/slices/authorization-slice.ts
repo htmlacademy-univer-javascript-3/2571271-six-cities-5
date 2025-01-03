@@ -1,6 +1,7 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { AuthStatus } from '../constants/constants.ts';
 import { User } from '../types/user.ts';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type AuthState = {
   authorizationStatus: AuthStatus;

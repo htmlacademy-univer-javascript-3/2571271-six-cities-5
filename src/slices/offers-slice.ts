@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { OfferList } from '../types/offer-list.ts';
 import { SortingOrder } from '../types/sortings.ts';
 import { FavouriteData } from '../types/favourite-data.ts';

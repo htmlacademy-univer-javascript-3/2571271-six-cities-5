@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 import { AppRoutes } from '../../constants/constants.ts';
 import { AuthData } from '../../types/authorization-data.ts';
 import { loginAction } from '../../store/api-actions.ts';

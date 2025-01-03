@@ -1,5 +1,5 @@
-import { MemoPlaceCard } from './place-card.tsx';
 import { Nullable } from 'vitest';
+import { MemoPlaceCard } from './place-card.tsx';
 import { CardTypes } from '../../constants/constants.ts';
 import { OfferList } from '../../types/offer-list.ts';
 

@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { useNavigate } from 'react-router-dom';
+
 import { FavouriteData } from '../../types/favourite-data.ts';
 import { useAppDispatch } from '../../store/hooks';
 import { changeFavoriteStatusAction } from '../../store/api-actions.ts';

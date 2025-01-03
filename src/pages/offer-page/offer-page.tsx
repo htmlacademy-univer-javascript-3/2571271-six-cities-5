@@ -1,12 +1,13 @@
-import OfferGoods from './offer-goods.tsx';
+import 'leaflet/dist/leaflet.css';
+import styles from './offerMap.module.css';
+
+import { OfferGoods } from './offer-goods.tsx';
 import { CommentList } from '../../components/comments/comment-list.tsx';
 import { CommentForm } from '../../components/comments/comment-form.tsx';
 import { Stars } from '../../components/stars/stars.tsx';
 import { RatingClasses } from '../../constants/constants.ts';
 import { Map } from '../../components/map/map.tsx';
 import { NearbyCardList } from '../../components/place-card/place-card-list.tsx';
-import 'leaflet/dist/leaflet.css';
-import styles from './offerMap.module.css';
 import { OfferBookmark } from '../../components/place-card/bookmark.tsx';
 import { AppRoutes } from '../../constants/constants.ts';
 import { useAppSelector, useAppDispatch } from '../../store/hooks.ts';
@@ -134,5 +135,3 @@ export function OfferPage() {
     </div>
   );
 }
-
-export default OfferPage;

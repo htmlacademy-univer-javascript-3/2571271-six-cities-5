@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useMemo } from 'react';
+
 import { OfferList } from '../../types/offer-list.ts';
 import { FavoritesCardList } from '../../components/place-card/place-card-list.tsx';
 

@@ -1,4 +1,4 @@
-function NotFound(): JSX.Element {
+export function NotFound(): JSX.Element {
   return (
     <main className="not_found">
       <h1>404</h1>
@@ -6,5 +6,3 @@ function NotFound(): JSX.Element {
     </main>
   );
 }
-
-export default NotFound;

@@ -1,8 +1,8 @@
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAppSelector } from '../../store/hooks.ts';
 import { AppRoutes } from '../../constants/constants.ts';
 import { AuthStatus } from '../../constants/constants.ts';
-import { useEffect } from 'react';
 import { Form } from './form.tsx';
 
 export function LoginPage() {
@@ -36,5 +36,3 @@ export function LoginPage() {
     </main>
   );
 }
-
-export default LoginPage;

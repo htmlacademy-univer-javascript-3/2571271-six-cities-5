@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
+
 import { FavoritesList } from './favorites-list.tsx';
 import { AppRoutes } from '../../constants/constants.ts';
 import { useAppSelector } from '../../store/hooks.ts';
 
 
-export default function FavoritesPage() {
+export function FavoritesPage() {
   const favourites = useAppSelector((state) => state.offers.favourites);
 
   return (

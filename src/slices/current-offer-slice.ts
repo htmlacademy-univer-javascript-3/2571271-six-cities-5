@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
 import { Offer } from '../types/offer.ts';
 import { OfferList } from '../types/offer-list.ts';
 import { Comment } from '../types/comment.ts';

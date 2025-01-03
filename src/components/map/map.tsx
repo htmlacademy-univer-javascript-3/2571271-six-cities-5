@@ -1,6 +1,7 @@
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {defaultCustomIcon, currentCustomIcon} from '../../constants/constants.ts';
+
+import { DEFAULT_CUSTOM_ICON, CURRENT_CUSTOM_ICON } from '../../constants/constants.ts';
 import { useEffect, useRef } from 'react';
 import { Location } from '../../types/location.ts';
 import { Nullable } from 'vitest';
@@ -21,13 +22,13 @@ export function Map({city, selectedPoint, points, className}: MapProps) {
     if (map) {
       points.forEach((loc) => {
         leaflet.marker({
-          lat: loc.location.latitude,
-          lng: loc.location.longitude
+          lat: loc.point.latitude,
+          lng: loc.point.longitude
         },
         {
           icon: loc.name === selectedPoint?.name
-            ? currentCustomIcon
-            : defaultCustomIcon,
+            ? CURRENT_CUSTOM_ICON
+            : DEFAULT_CUSTOM_ICON,
         })
           .addTo(map);
       });

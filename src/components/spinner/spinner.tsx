@@ -1,4 +1,4 @@
-import styles from '../../main-page.module.css';
+import styles from '../../pages/main-page/main-page.module.css';
 
 export function Spinner() {
   return (

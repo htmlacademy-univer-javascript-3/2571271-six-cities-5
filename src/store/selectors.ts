@@ -1,6 +1,7 @@
-import {createSelector} from '@reduxjs/toolkit';
-import {State} from '../types/state.ts';
-import {sorting} from '../types/sortings.ts';
+import { createSelector } from '@reduxjs/toolkit';
+
+import { State } from '../types/state.ts';
+import { sorting } from '../types/sortings.ts';
 
 export const cityOffersSelector = createSelector(
   [

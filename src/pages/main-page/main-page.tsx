@@ -1,6 +1,7 @@
+import cn from 'classnames';
+
 import { Tabs } from '../../components/tabs/tabs.tsx';
 import { useAppDispatch, useAppSelector } from '../../store/hooks.ts';
-import cn from 'classnames';
 import { EmptyOfferList, OfferListMainPage } from './offer-list-main-page.tsx';
 import { cityOffersSelector } from '../../store/selectors.ts';
 import { changeCity } from '../../slices/city-slice.ts';

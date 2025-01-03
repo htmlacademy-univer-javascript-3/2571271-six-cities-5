@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import {CreateAPI} from '../services/api.ts';
+
+import { CreateAPI } from '../services/api.ts';
 import cityReducer from '../slices/city-slice.ts';
 import offersReducer from '../slices/offers-slice.ts';
 import authReducer from '../slices/authorization-slice.ts';

@@ -1,17 +1,29 @@
+import {useEffect} from 'react';
 import { Provider } from 'react-redux';
-import { MainPage } from '../../pages/main-page/main-page';
-import NotFound from '../../pages/errors/404';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { MainPage } from '../../pages/main-page/main-page';
+import { NotFound } from '../../pages/errors/404';
+
 import { AppRoutes } from '../../constants/constants';
-import LoginPage from '../../pages/login-page/login-page.tsx';
-import FavoritesPage from '../../pages/favorites-page/favorites-page.tsx';
-import OfferPage from '../../pages/offer-page/offer-page.tsx';
-import PrivateRoute from '../private-route/private-route';
-import Layout from '../layout/layout';
+import { LoginPage } from '../../pages/login-page/login-page.tsx';
+import { FavoritesPage } from '../../pages/favorites-page/favorites-page.tsx';
+import { OfferPage } from '../../pages/offer-page/offer-page.tsx';
+import { PrivateRoute } from '../private-route/private-route';
+import { Layout } from '../layout/layout';
 import { store } from '../../store';
+import {authorizationAction, fetchFavoritesAction, fetchOrdersAction} from '../../store/api-actions.ts';
 
 
 export function App() {
+  useEffect(() => {
+    (async ()=> {
+      store.dispatch(fetchOrdersAction());
+      await store.dispatch(authorizationAction());
+      await store.dispatch(fetchFavoritesAction());
+    })();
+  }, []);
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -33,5 +45,3 @@ export function App() {
     </Provider>
   );
 }
-
-export default App;

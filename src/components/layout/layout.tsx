@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { Outlet, useLocation, Link, useNavigate } from 'react-router-dom';
+
 import { AppRoutes } from '../../constants/constants';
 import { AuthStatus } from '../../constants/constants';
 import { useAppDispatch, useAppSelector } from '../../store/hooks';
@@ -87,5 +88,3 @@ export function Layout() {
       <Outlet />
     </div>);
 }
-
-export default Layout;
