@@ -1,4 +1,4 @@
-export default function OfferGoods({ items }: { items?: string[] }) {
+export function OfferGoods({ items }: { items?: string[] }) {
   return (
     <div className="offer__inside">
       <h2 className="offer__inside-title">What&apos;s inside</h2>

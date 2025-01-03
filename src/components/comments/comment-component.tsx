@@ -1,15 +1,13 @@
 import { Comment } from '../../types/comment.ts';
-import { RatingClasses } from '../../constants/constants.ts';
+import { RatingClasses, MONTH_NAMES } from '../../constants/constants.ts';
 import { Stars } from '../stars/stars.tsx';
-import { monthNames } from '../../constants/constants.ts';
-
 
 type CommentComponentProps = Comment;
 
 function ConvertStringDate(stringDate: string): string{
   const date = new Date(stringDate);
 
-  return `${monthNames[date.getMonth()]} ${date.getFullYear()}`;
+  return `${MONTH_NAMES[date.getMonth()]} ${date.getFullYear()}`;
 }
 
 export function CommentComponent({user, rating, comment, date}:CommentComponentProps){

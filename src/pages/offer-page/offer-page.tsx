@@ -1,34 +1,47 @@
-import { Offer } from '../../types/offer.ts';
-import { Comment } from '../../types/comment.ts';
-import OfferGoods from './offer-goods.tsx';
+import 'leaflet/dist/leaflet.css';
+import styles from './offerMap.module.css';
+
+import { OfferGoods } from './offer-goods.tsx';
 import { CommentList } from '../../components/comments/comment-list.tsx';
 import { CommentForm } from '../../components/comments/comment-form.tsx';
 import { Stars } from '../../components/stars/stars.tsx';
 import { RatingClasses } from '../../constants/constants.ts';
-import { OfferList } from '../../types/offer-list.ts';
 import { Map } from '../../components/map/map.tsx';
 import { NearbyCardList } from '../../components/place-card/place-card-list.tsx';
-import 'leaflet/dist/leaflet.css';
-import styles from './offerMap.module.css';
-import { useParams } from 'react-router-dom';
-import NotFound from '../errors/404.tsx';
+import { OfferBookmark } from '../../components/place-card/bookmark.tsx';
+import { AppRoutes } from '../../constants/constants.ts';
+import { useAppSelector, useAppDispatch } from '../../store/hooks.ts';
+import { useOfferPage } from './use-offer-page.ts';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
+import { Spinner } from '../../components/spinner/spinner.tsx';
+import { AuthStatus } from '../../constants/constants.ts';
+import { clearOffer } from '../../slices/current-offer-slice.ts';
 
-type OfferPageProps = {
-  offers: Offer[];
-  comments: Comment[];
-  nearOffers: OfferList[];
-};
+export function OfferPage() {
+  const authStatus = useAppSelector((state) => state.auth.authorizationStatus);
+  const { offer, comments, nearbyOffers, error, isLoading } = useOfferPage();
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
-export function OfferPage({offers, comments, nearOffers}: OfferPageProps) {
-  const params = useParams();
-  const offer = offers.find((off) => off.id === params.id);
-
-  if (!offer){
-    return (<NotFound />);
+  useEffect(() => {
+    if (error !== undefined || (!isLoading && offer === undefined)) {
+      navigate(AppRoutes.NotFound);
+    }
+  }, [error, navigate, offer, isLoading]);
+  useEffect(
+    () => () => {
+      dispatch(clearOffer());
+    },
+    [dispatch]
+  );
+  if (isLoading || offer === undefined) {
+    return <Spinner />;
   }
 
   const offerLocation = {name: offer.id, point: offer.location};
-  const displayedOffers = nearOffers
+
+  const displayedOffers = nearbyOffers
     .filter((off) => off.id !== offer.id)
     .slice(0, 3);
 
@@ -60,17 +73,9 @@ export function OfferPage({offers, comments, nearOffers}: OfferPageProps) {
                 <h1 className="offer__name">
                   {offer.title}
                 </h1>
-                <button
-                  className={`button offer__bookmark-button ${offer.isFavorite ? 'offer__bookmark-button--active' : ''}`}
-                  type="button"
-                >
-                  <svg className="offer__bookmark-icon" width={31} height={33}>
-                    <use xlinkHref="#icon-bookmark"/>
-                  </svg>
-                  <span className="visually-hidden">{offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
-                </button>
+                <OfferBookmark offerId={offer.id} isFavorite={offer.isFavorite} />
               </div>
-              <Stars rating={offer.rating} isValueHidden={false} ratingClass={RatingClasses.Offer} />
+              <Stars rating={offer.rating} isValueHidden={false} ratingClass={RatingClasses.Offer}/>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">{offer.type}</li>
                 <li className="offer__feature offer__feature--bedrooms">
@@ -107,8 +112,8 @@ export function OfferPage({offers, comments, nearOffers}: OfferPageProps) {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <CommentList comments={comments} />
-                <CommentForm/>
+                <CommentList comments={comments}/>
+                {authStatus === AuthStatus.Auth && <CommentForm />}
               </section>
             </div>
           </div>
@@ -130,5 +135,3 @@ export function OfferPage({offers, comments, nearOffers}: OfferPageProps) {
     </div>
   );
 }
-
-export default OfferPage;

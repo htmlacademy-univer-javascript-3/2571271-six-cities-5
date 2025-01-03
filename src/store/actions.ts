@@ -1,6 +1,7 @@
 import { createAction } from '@reduxjs/toolkit';
+
 import { SortingOrder } from '../types/sortings.ts';
-import OfferList from '../types/offer-list.ts';
+import { OfferList } from '../types/offer-list.ts';
 import { AuthStatus } from '../constants/constants.ts';
 import { User } from '../types/user.ts';
 

@@ -1,20 +1,20 @@
 import { Link } from 'react-router-dom';
+
 import { FavoritesList } from './favorites-list.tsx';
-import { OfferList } from '../../types/offer-list.ts';
 import { AppRoutes } from '../../constants/constants.ts';
+import { useAppSelector } from '../../store/hooks.ts';
 
-type FavoritesPageProps = {
-  offers: OfferList[];
-};
 
-export default function FavoritesPage({offers}: FavoritesPageProps) {
+export function FavoritesPage() {
+  const favourites = useAppSelector((state) => state.offers.favourites);
+
   return (
     <div className="page">
       <main className="page__main page__main--favorites">
         <div className="page__favorites-container container">
           <section className="favorites">
             <h1 className="favorites__title">Listing Saved</h1>
-            <FavoritesList offers={offers}/>
+            <FavoritesList offers={favourites} />
           </section>
         </div>
       </main>

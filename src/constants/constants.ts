@@ -1,10 +1,11 @@
-import {Icon} from 'leaflet';
+import { Icon } from 'leaflet';
 
 export enum AppRoutes {
   Root = '/',
   Login = '/login',
   Favorites = 'favorites',
   Offer = 'offer/:id',
+  NotFound = '/*',
 }
 
 export enum AuthStatus {
@@ -30,7 +31,13 @@ export enum ApiRoutes {
   Logout = '/six-cities/logout',
 }
 
-export const monthNames = [
+export enum RatingClasses{
+  Offer,
+  Comment,
+  PlaceCard
+}
+
+export const MONTH_NAMES = [
   'January',
   'February',
   'March',
@@ -45,19 +52,14 @@ export const monthNames = [
   'December'
 ];
 
-export enum RatingClasses{
-  Offer,
-  Comment,
-  PlaceCard
-}
-
-export const defaultCustomIcon = new Icon({
+export const DEFAULT_CUSTOM_ICON = new Icon({
   iconUrl:
     'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg',
   iconSize: [40, 40],
   iconAnchor: [20, 40],
 });
-export const currentCustomIcon = new Icon({
+
+export const CURRENT_CUSTOM_ICON = new Icon({
   iconUrl:
     'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg',
   iconSize: [40, 40],

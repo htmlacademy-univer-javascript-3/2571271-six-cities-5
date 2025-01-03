@@ -1,25 +1,29 @@
+import {useEffect} from 'react';
 import { Provider } from 'react-redux';
-import MainPage from '../../pages/main-page/main-page';
-import NotFound from '../../pages/errors/404';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { MainPage } from '../../pages/main-page/main-page';
+import { NotFound } from '../../pages/errors/404';
+
 import { AppRoutes } from '../../constants/constants';
-import LoginPage from '../../pages/login-page/login-page.tsx';
-import FavoritesPage from '../../pages/favorites-page/favorites-page.tsx';
-import OfferPage from '../../pages/offer-page/offer-page.tsx';
-import PrivateRoute from '../private-route/private-route';
-import Layout from '../layout/layout';
-import { Offer } from '../../types/offer.ts';
-import { OfferList } from '../../types/offer-list.ts';
-import { Comment } from '../../types/comment.ts';
+import { LoginPage } from '../../pages/login-page/login-page.tsx';
+import { FavoritesPage } from '../../pages/favorites-page/favorites-page.tsx';
+import { OfferPage } from '../../pages/offer-page/offer-page.tsx';
+import { PrivateRoute } from '../private-route/private-route';
+import { Layout } from '../layout/layout';
 import { store } from '../../store';
+import {authorizationAction, fetchFavoritesAction, fetchOrdersAction} from '../../store/api-actions.ts';
 
-type AppProps = {
-  offerList: OfferList[];
-  offers: Offer[];
-  comments: Comment[];
-};
 
-export function App({offers, comments, offerList}: AppProps) {
+export function App() {
+  useEffect(() => {
+    (async ()=> {
+      store.dispatch(fetchOrdersAction());
+      await store.dispatch(authorizationAction());
+      await store.dispatch(fetchFavoritesAction());
+    })();
+  }, []);
+
   return (
     <Provider store={store}>
       <BrowserRouter>
@@ -28,10 +32,10 @@ export function App({offers, comments, offerList}: AppProps) {
             <Route index path={AppRoutes.Root} element={<MainPage />} />
             <Route path={AppRoutes.Login} element={<LoginPage />}></Route>
             <Route element={<PrivateRoute />}>
-              <Route path={AppRoutes.Favorites} element={<FavoritesPage offers={offerList} />}></Route>
+              <Route path={AppRoutes.Favorites} element={<FavoritesPage />}></Route>
             </Route>
             <Route path={AppRoutes.Offer}
-              element={<OfferPage comments={comments} offers={offers} nearOffers={offerList} />}
+              element={<OfferPage />}
             >
             </Route>
             <Route path='*' element={<NotFound />}></Route>
@@ -41,5 +45,3 @@ export function App({offers, comments, offerList}: AppProps) {
     </Provider>
   );
 }
-
-export default App;

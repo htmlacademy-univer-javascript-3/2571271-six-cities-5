@@ -10,10 +10,10 @@ export function useMap(mapRef: React.RefObject<null>, location: Location) {
     if (mapRef.current !== null && !isRenderedRef.current) {
       const instance = leaflet.map(mapRef.current, {
         center: {
-          lat: location.location.latitude,
-          lng: location.location.longitude,
+          lat: location.point.latitude,
+          lng: location.point.longitude,
         },
-        zoom: location.location.zoom,
+        zoom: location.point.zoom,
       });
 
       leaflet.tileLayer(
